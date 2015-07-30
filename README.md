@@ -6,7 +6,7 @@ to display only authorized links.
 
 ##Exemple:##
 
-'''
+```
 from flask.ext.acl import acl, allow_if
 from myproject import app
 
@@ -38,21 +38,19 @@ def drive(drunk):
 @app.route('/welcome/<bool:drunk>/<int:value>')
 def welcome_home(drunk, value):
     return "route is major and sober"
-'''
+```
 
 In real life you may want to place all acl decorated function in a
 conditions.py file then do something like:
 
-'''
+```
 import conditions as Is
-
 
 @allow_if(Is.drunk | Is.major)
 @app.route('/test/<int:age>/<bool:drunk>')
 def protected_route(value, drunk):
     return "route is major or drunk or both"
-'''
-
+```
 availables acl operators are:
 
  -   ``a & b`` -> ``a and b``
