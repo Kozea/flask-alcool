@@ -68,7 +68,7 @@ Available alcool operators are:
 -   ``~ a`` → ``not a``
 
 
-### Display link only to authorized routes ###
+###Display links only for authorized routes###
 
 Use this snippet to configure Jinja2:
 
@@ -80,10 +80,10 @@ alcool = Alcool(app)
 Then, in templates you can use the new {% auth %} block:
 
 ```html+jinja
-{% auth 'drive', {'drunk':false} %}
+{% auth 'drive', {'drunk': false} %}
   This text will be displayed
-{%endauth%}
-{% auth 'drive', {'drunk':true} %}
+{% endauth %}
+{% auth 'drive', {'drunk': true} %}
   This text will not be displayed
-{%endauth%}
+{% endauth %}
 ```
