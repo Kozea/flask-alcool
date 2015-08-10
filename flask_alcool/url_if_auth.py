@@ -1,10 +1,12 @@
 """
-Jinja2 auth conditional url display extensions
+Jinja2 auth conditional url display extensions.
+
 """
 
 from jinja2 import nodes
 from jinja2.ext import Extension
-from .acl import if_auth_url_for
+
+from .alcool import if_auth_url_for
 
 
 class UrlIfAuthExtension(Extension):

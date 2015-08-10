@@ -3,13 +3,13 @@ from setuptools import setup
 setup(
     name='Flask-Alcool',
     version='0.2',
-    url='http://github.com/Kozea/flask-acl',
+    url='http://github.com/Kozea/flask-alcool',
     license='Beer License',
     author='Yohann Rebattu',
     author_email='yohann.rebattu@kozea.fr',
-    description='Add acl like support on flask routes',
+    description='Implement access control lists as decorators for flask.',
     long_description=__doc__,
-    packages=['flask_acl'],
+    packages=['flask_alcool'],
     zip_safe=False,
     install_requires=[
         'Flask',

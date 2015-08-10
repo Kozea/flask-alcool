@@ -1,16 +1,18 @@
 """
-    flask.ext.acl
-    ~~~~~~~~~~~~~
+flask.ext.alcool
+~~~~~~~~~~~~~~~~
 
-    Implements access control list like decorators for flask.
+Implements access control lists as decorators for flask.
 
-    :copyright: (c) 2015 by Florient Mounier, Yohann Rebattu.
-    :license: BeerLicense, see LICENSE for more details.
+:copyright: (c) 2015 by Florient Mounier, Yohann Rebattu.
+:license: BeerLicense, see LICENSE for more details.
+
 """
-from .acl import allow_if, acl
+
+from .alcool import allow_if, alcool
 
 
-class Acl():
+class Alcool:
     def __init__(self, app=None, configure_jinja=True):
         self._configure_jinja = configure_jinja
         self.app = app
@@ -20,12 +22,12 @@ class Acl():
 
     def init_app(self, app):
         self.app = app
-        app.acl_instance = self
+        app.alcool_instance = self
 
         if not hasattr(app, 'extensions'):
             app.extensions = {}
 
-        app.extensions['acl'] = self
+        app.extensions['alcool'] = self
 
         if self._configure_jinja:
             from .url_if_auth import UrlIfAuthExtension

@@ -63,7 +63,7 @@ def protected_route(value, drunk):
 Available alcool operators are:
 
 -   ``a & b`` → ``a and b``
--   ``a | b`` → ``a or  b``
+-   ``a | b`` → ``a or b``
 -   ``a ^ b`` → ``a xor b``
 -   ``~ a`` → ``not a``
 

@@ -1,34 +1,35 @@
 """
 Base module for auth handling.
+
 """
 
 from functools import wraps
-from flask import request, abort
-
-from flask import url_for as flask_url_for, current_app
+from flask import current_app, request, abort, url_for
 
 
 def if_auth_url_for(endpoint, **values):
-    """ Act like an url_for unless current
-    context has no rights for the linked page
-    """
+    """Act like an ``url_for`` unless current context has no rights for the linked page."""
     fun = current_app.view_functions.get(endpoint)
     if fun and (not hasattr(fun, '_auth_fun') or fun._auth_fun(**values)):
-        return flask_url_for(endpoint, **values), fun
+        return url_for(endpoint, **values), fun
     return None, None
 
 
 # These classes are decorators, they can begin with an lowercase letter
-class acl(object):
+class alcool(object):
     """Utility decorator for access control in ``allow_if`` decorators.
+
     Allowing to write:
     ``@allow_if((Is.admin | Is.in_domain) & ~Is.in_super_domain)``
-    given that Is module functions are decorated by acl
+    given that ``Is`` module functions are decorated by alcool.
+
     It implements the following operators:
-    ``a & b`` -> ``a and b``
-    ``a | b`` -> a or  b``
-    ``a ^ b`` -> a xor b``
-    ``~ a`` -> not a``
+
+    - ``a & b`` → ``a and b``
+    - ``a | b`` → ``a or b``
+    - ``a ^ b`` → ``a xor b``
+    - ``~ a`` → ``not a``
+
     """
     def __init__(self, function=lambda context: True):
         self.__name__ = function.__name__
@@ -45,7 +46,7 @@ class acl(object):
             """Closure for the or operator."""
             return self(**kwargs) or other(**kwargs)
         result.__name__ = "%s | %s" % (self.__name__, other.__name__)
-        return acl(result)
+        return alcool(result)
 
     def __ror__(self, other):
         """Right or operator."""
@@ -53,7 +54,7 @@ class acl(object):
             """Closure for the right or operator."""
             return other(**kwargs) or self(**kwargs)
         result.__name__ = "%s | %s" % (other.__name__, self.__name__)
-        return acl(result)
+        return alcool(result)
 
     def __and__(self, other):
         """And operator."""
@@ -61,7 +62,7 @@ class acl(object):
             """Closure for the and operator."""
             return self(**kwargs) and other(**kwargs)
         result.__name__ = "%s & %s" % (self.__name__, other.__name__)
-        return acl(result)
+        return alcool(result)
 
     def __rand__(self, other):
         """Right and operator."""
@@ -69,7 +70,7 @@ class acl(object):
             """Closure for the right and operator."""
             return other(**kwargs) and self(**kwargs)
         result.__name__ = "%s & %s" % (other.__name__, self.__name__)
-        return acl(result)
+        return alcool(result)
 
     def __xor__(self, other):
         """Exclusive or operator."""
@@ -79,7 +80,7 @@ class acl(object):
                 self(**kwargs) and not other(**kwargs) or
                 other(**kwargs) and not self(**kwargs))
         result.__name__ = "%s ^ %s" % (self.__name__, other.__name__)
-        return acl(result)
+        return alcool(result)
 
     def __rxor__(self, other):
         """Right exclusive or operator."""
@@ -89,7 +90,7 @@ class acl(object):
                 other(**kwargs) and not self(**kwargs) or
                 self(**kwargs) and not other(**kwargs))
         result.__name__ = "%s ^ %s" % (other.__name__, self.__name__)
-        return acl(result)
+        return alcool(result)
 
     def __invert__(self):
         """Invert operator."""
@@ -97,7 +98,7 @@ class acl(object):
             """Closure for the invert operator."""
             return not self(**kwargs)
         result.__name__ = "~%s" % self.__name__
-        return acl(result)
+        return alcool(result)
 
 
 class allow_if(object):
