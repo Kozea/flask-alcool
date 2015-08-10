@@ -1,29 +1,30 @@
-#Flask-Acl#
+#Flask-Alcool#
 
-Flask acl is a Flak extension to provide access control list like rights
-management with decorators on routes. It also provide a jinja extension
-to display only authorized links.
+Flask-Alcool is a Flak extension to provide access control list like rights
+management with decorators on routes. It also provide a jinja extension to
+display only authorized links.
 
-## Install ##
+##Install##
 
+```
 pip install Flask-Alcool
+```
 
-##Example:##
+##Examples##
 
 ###Protect routes###
 
-```
-from flask.ext.acl import acl, allow_if
+```python
+from flask.ext.alcool import alcool, allow_if
 from myproject import app
 
 
-
-@acl
+@alcool
 def drunk(**kwargs):
     return kwargs.get('drunk', False)
 
 
-@acl
+@alcool
 def major(**kwargs):
     value = kwargs.get('value', 0)
     return True if value > 18 else False
@@ -47,10 +48,10 @@ def welcome_home(drunk, value):
     return "route is major and sober"
 ```
 
-In real life you may want to place all acl decorated function in a
+In real life you may want to place all alcool decorated function in a
 conditions.py file then do something like:
 
-```
+```python
 import conditions as Is
 
 @allow_if(Is.drunk | Is.major)
@@ -58,25 +59,27 @@ import conditions as Is
 def protected_route(value, drunk):
     return "route is major or drunk or both"
 ```
-availables acl operators are:
 
- -   ``a & b`` -> ``a and b``
- -   ``a | b`` -> a or  b``
- -   ``a ^ b`` -> a xor b``
- -   ``~ a`` -> not a``
+Available alcool operators are:
+
+-   ``a & b`` → ``a and b``
+-   ``a | b`` → ``a or  b``
+-   ``a ^ b`` → ``a xor b``
+-   ``~ a`` → ``not a``
 
 
 ### Display link only to authorized routes ###
-use this snippet to configure jinja
 
-```
-from flask.ext.acl import Acl
-acl = Acl(app)
-```
-then in templates you can use the new {% auth %} block
+Use this snippet to configure Jinja2:
 
-
+```python
+from flask.ext.alcool import Alcool
+alcool = Alcool(app)
 ```
+
+Then, in templates you can use the new {% auth %} block:
+
+```html+jinja
 {% auth 'drive', {'drunk':false} %}
   This text will be displayed
 {%endauth%}
