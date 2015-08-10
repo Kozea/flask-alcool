@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='Flask-Acl',
+    name='Flask-Alcool',
     version='0.1',
     url='http://github.com/Kozea/flask-acl',
     license='Beer License',
@@ -11,13 +11,12 @@ setup(
     long_description=__doc__,
     packages=['flask_acl'],
     zip_safe=False,
-    plateform='any',
     install_requires=[
         'Flask',
         'Jinja2>=2.5'
     ],
     classifiers=[
-        'Development Status :: 1 - Alpha',
+        'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
