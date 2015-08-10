@@ -2,7 +2,7 @@
 flask.ext.alcool
 ~~~~~~~~~~~~~~~~
 
-Implements access control lists as decorators for flask.
+Implement access control lists as decorators for flask.
 
 :copyright: (c) 2015 by Florient Mounier, Yohann Rebattu.
 :license: BeerLicense, see LICENSE for more details.
