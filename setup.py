@@ -10,6 +10,7 @@ setup(
     description='Implement access control lists as decorators for flask.',
     long_description=__doc__,
     packages=['flask_alcool'],
+    data_files=[('', ["LICENSE.txt"])]
     zip_safe=False,
     install_requires=[
         'Flask',
