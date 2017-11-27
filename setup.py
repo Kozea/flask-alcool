@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='Flask-Alcool',
-    version='0.3',
+    version='0.4',
     url='http://github.com/Kozea/flask-alcool',
     license='Beer License',
     author='Yohann Rebattu',
