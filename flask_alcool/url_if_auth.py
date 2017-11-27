@@ -27,23 +27,24 @@ class UrlIfAuthExtension(Extension):
         token = next(parser.stream)
         if token.test('name:else'):
             else_ = parser.parse_statements(
-                ('name:endauth',), drop_needle=True)
+                ('name:endauth', ), drop_needle=True)
         else:
             else_ = None
         url_fun_tuple = nodes.Tuple([url_var, fun_var], 'store')
         # The url goes in the dyn_args (its not visited otherwise).
         # To be in the dyn_args, it must be wrapped in a Tuple.
-        assignment = nodes.Assign(
-            url_fun_tuple, self.call_method(
-                'template_if_auth_url_for', dyn_args=nodes.Tuple([url],
-                                                                 'load'),
-                dyn_kwargs=args)).set_lineno(lineno)
+        assignment = nodes.Assign(url_fun_tuple,
+                                  self.call_method(
+                                      'template_if_auth_url_for',
+                                      dyn_args=nodes.Tuple([url], 'load'),
+                                      dyn_kwargs=args)).set_lineno(lineno)
 
         returned_ast = [assignment]
         if_node = nodes.If()
         if_node.test = nodes.Name('checked_url', 'load')
         if_node.body = body
         if_node.else_ = else_
+        if_node.elif_ = []
         returned_ast.append(if_node.set_lineno(lineno))
         return returned_ast
 
