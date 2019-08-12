@@ -1,18 +1,18 @@
-#Flask-Alcool#
+# Flask-Alcool
 
 Flask-Alcool is a Flak extension to provide access control list like rights
 management with decorators on routes. It also provide a jinja extension to
 display only authorized links.
 
-##Install##
+## Install
 
 ```
 pip install Flask-Alcool
 ```
 
-##Examples##
+## Examples
 
-###Protect routes###
+### Protect routes
 
 ```python
 from flask.ext.alcool import alcool, allow_if
@@ -30,20 +30,20 @@ def major(**kwargs):
     return True if value > 18 else False
 
 
-@allow_if(drunk | major)
 @app.route('/test/<int:age>/<bool:drunk>')
+@allow_if(drunk | major)
 def protected_route(value, drunk):
     return "route is major or drunk or both"
 
 
-@allow_if(~drunk)
 @app.route('/drive/<bool:drunk>')
+@allow_if(~drunk)
 def drive(drunk):
     return "route is sober : drive safely"
 
 
-@allow_if(major & ~drunk)
 @app.route('/welcome/<bool:drunk>/<int:value>')
+@allow_if(major & ~drunk)
 def welcome_home(drunk, value):
     return "route is major and sober"
 ```
@@ -54,8 +54,8 @@ conditions.py file then do something like:
 ```python
 import conditions as Is
 
-@allow_if(Is.drunk | Is.major)
 @app.route('/test/<int:age>/<bool:drunk>')
+@allow_if(Is.drunk | Is.major)
 def protected_route(value, drunk):
     return "route is major or drunk or both"
 ```
@@ -68,7 +68,7 @@ Available alcool operators are:
 -   ``~ a`` → ``not a``
 
 
-###Display links only for authorized routes###
+### Display links only for authorized routes
 
 Use this snippet to configure Jinja2:
 
