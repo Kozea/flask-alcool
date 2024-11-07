@@ -1,6 +1,6 @@
 # Flask-Alcool
 
-Flask-Alcool is a Flak extension to provide access control list like rights
+Flask-Alcool is a Flask extension to provide access control list like rights
 management with decorators on routes. It also provide a jinja extension to
 display only authorized links.
 
